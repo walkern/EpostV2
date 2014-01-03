@@ -12,9 +12,42 @@
 		<g:layoutHead/>
 		<g:javascript library="application"/>
         <r:require modules="bootstrap"/>
+        <r:require module="fileuploader" />
 		<r:layoutResources />
 	</head>
 	<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Electronic Postcards</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="/">Home</a>
+                    </li>
+                    <li>
+                        <a href="/postCard/index">List</a>
+                    </li>
+                    <li>
+                        <a href="/postCard/create">Create</a>
+                    </li>
+               </ul>
+            </div>
+            <!--/.navbar-collapse -->
+        </div>
+   </div>
+    <div class="jumbotron">
+        <div class="container">
+            <p></p>
+            <p>Create an electronic postcard</p>
+            <p></p>
+        </div>
+    </div>
+
 		<g:layoutBody/>
 		<r:layoutResources />
 	</body>
