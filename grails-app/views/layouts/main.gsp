@@ -40,15 +40,26 @@
             <!--/.navbar-collapse -->
         </div>
    </div>
-    <div class="jumbotron">
+    <div class="jumbotron" style="background: url('/images/beach1.jpg') 15% 70% no-repeat;background-size:450px 300px;">
         <div class="container">
-            <p></p>
-            <p>Create an electronic postcard</p>
-            <p></p>
+            <br>
+            <br>
         </div>
     </div>
-
-		<g:layoutBody/>
-		<r:layoutResources />
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-10">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Postcards
+                    </div>
+                    <g:layoutBody/>
+		            <r:layoutResources />
+                </div>
+            </div>
+        </div>
+    </div>
 	</body>
 </html>

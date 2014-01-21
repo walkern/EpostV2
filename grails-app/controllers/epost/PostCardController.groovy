@@ -15,6 +15,12 @@ class PostCardController {
         respond PostCard.list(params), model:[postCardInstanceCount: PostCard.count()]
     }
 
+	def home() {
+		params.max = 100
+//		render view:"/index"
+		respond PostCard.list(params), model:[postCardInstanceCount: PostCard.count()],view:"/index"
+	}
+	
     def show(PostCard postCardInstance) {
         respond postCardInstance
     }
@@ -23,27 +29,44 @@ class PostCardController {
         respond new PostCard(params)
     }
 
-    @Transactional
-    def save(PostCard postCardInstance) {
-        if (postCardInstance == null) {
+    def save() {
+		def postCardInstance = new PostCard()
+		postCardInstance.senderfirst = params.senderfirst
+		postCardInstance.sendersurname = params.sendersurname
+		postCardInstance.senderemail = params.senderemail
+		postCardInstance.message = params.message
+		postCardInstance.name = params.name
+		postCardInstance.address1 = params.address1
+		postCardInstance.address2 = params.address2
+		postCardInstance.city = params.city
+		postCardInstance.postcode = params.postcode
+		postCardInstance.country = params.country
+		def uploadedFile = request.getFile('image')
+		if (postCardInstance == null) {
             notFound()
             return
         }
 
+		if(!uploadedFile.empty){
+			def fileName = uploadedFile.originalFilename
+			println fileName
+			try{
+				uploadedFile.transferTo(new File("web-app/uploadFile/${fileName}"))
+			}catch(Exception e){
+				render(view: "profile", model:[agent:agentCommand,message:"unable to upload Agent profile photo."])
+				return
+			}
+			postCardInstance.image=fileName
+		}
+		postCardInstance.validate()
         if (postCardInstance.hasErrors()) {
-            respond postCardInstance.errors, view:'create'
+			respond postCardInstance.errors, view:'create'
             return
         }
 
         postCardInstance.save flush:true
 
-        request.withFormat {
-            form {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'postCardInstance.label', default: 'PostCard'), postCardInstance.id])
-                redirect postCardInstance
-            }
-            '*' { respond postCardInstance, [status: CREATED] }
-        }
+        redirect(actionName:"index")
     }
 
     def edit(PostCard postCardInstance) {

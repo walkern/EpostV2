@@ -11,7 +11,7 @@ class PostCard {
     String city;
     String postcode;
     String country;
-    String image = "/ajaxUpload/upload"
+    String image
 
     static constraints = {
         senderfirst(size:1..15, blank:false)

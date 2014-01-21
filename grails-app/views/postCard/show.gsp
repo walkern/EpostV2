@@ -101,7 +101,10 @@
 				<li class="fieldcontain">
 					<span id="image-label" class="property-label"><g:message code="postCard.image.label" default="Image" /></span>
 					
-						<span class="property-value" aria-labelledby="image-label"><g:fieldValue bean="${postCardInstance}" field="image"/></span>
+						<span class="property-value" aria-labelledby="image-label">
+							<img alt="${postCardInstance.image}" src="/uploadFile/${postCardInstance.image}" style="height: 50px;">
+						
+						</span>
 					
 				</li>
 				</g:if>
