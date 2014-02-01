@@ -1,9 +1,11 @@
 package epost
 
+import grails.converters.JSON
+import groovyx.net.http.HTTPBuilder
 
-
-import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import groovyx.net.http.HTTPBuilder
+import static groovyx.net.http.ContentType.URLENC
 
 @Transactional(readOnly = true)
 class PostCardController {
@@ -27,6 +29,31 @@ class PostCardController {
 
     def create() {
         respond new PostCard(params)
+    }
+
+    def preview(PostCard postCardInstance){
+        def statusLine = "200"
+        def http = new HTTPBuilder( 'https://api.scribblepics.com/postcard/' )
+        // auth omitted...
+        def postBody = [apiKey:'50fb3598-3e3e-4dfc-a4fd-21d62520d5a1',sender:[firstName:'${postCardInstance.firstName}',lastName:'${postCardInstance.lastName}',email:'${postCardInstance.email}'],recipient:[name:'${postCardInstance.name}', addressLine1:'${postCardInstance.address1}', addressLine2:'${postCardInstance.address2}', city:'${postCardInstance.city}', zip:'${postCardInstance.zip}', country:'${postCardInstance.country}'],message:'${postCardInstance.message}',imageUrl:'${grailsApplication.config.grails.apiURL}'+'/uploadFile/'+'${postCardInstance.image}']
+//Just comment bellow code for popup
+        http.post( path: 'create', body: postBody,
+                requestContentType: URLENC ) { resp ->
+
+            println "status: ${resp.statusLine}"
+            statusLine = resp.statusLine
+            assert resp.statusLine.statusCode == 200
+        }
+//Just comment code for popup
+        render statusLine
+    }
+
+    def back(){
+        render "Back"
+    }
+
+    def front(){
+        render "front"
     }
 
     def save() {

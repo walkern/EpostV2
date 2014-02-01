@@ -1,4 +1,3 @@
-
 <%@ page import="epost.PostCard" %>
 <!DOCTYPE html>
 <html>
@@ -6,6 +5,12 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'postCard.label', default: 'PostCard')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
+        <script language="JavaScript">
+            function previewPostCard(data){
+                window.open('${grailsApplication.config.grails.apiURL}/back?scale=0.5&postcardId='+data,'windowname1','width=1050, height=500, resizable=1');
+                window.open('${grailsApplication.config.grails.apiURL}/front?scale=0.5&postcardId='+data,'windowname2','width=1050, height=500, resizable=1');
+            }
+        </script>
 	</head>
 	<body>
                     <div class="panel-body">
@@ -34,8 +39,9 @@
 				<tbody>
 				<g:each in="${postCardInstanceList}" status="i" var="postCardInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					     <td><a class="btn btn-primary btn-block">Preview</a>
-					     <a class="btn btn-success btn-block">Edit</a></td>
+					     <td>
+                            <g:remoteLink class="btn btn-success btn-block" action="preview" id="${postCardInstance.id}" onSuccess="previewPostCard(data);">Preview</g:remoteLink>
+					        <g:link class="btn btn-success btn-block" action="show" id="${postCardInstance.id}">Edit</g:link></td>
 
                         <td><g:link action="show" id="${postCardInstance.id}">${fieldValue(bean: postCardInstance, field: "senderfirst")}</g:link>
 

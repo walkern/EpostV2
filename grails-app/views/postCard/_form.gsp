@@ -87,7 +87,8 @@
 		<g:message code="postCard.image.label" default="Image" />
 		<span class="required-indicator">*</span>
 	</label>
-<%--	<g:textField name="image" required="" value="${postCardInstance?.image}"/>--%>
+    <img alt="${postCardInstance.image}" src="/uploadFile/${postCardInstance.image}" style="height: 50px;">
+	<g:textField name="image" required="" value="${postCardInstance?.image}"/>
 	<input type="file" name="image" required="" value="${postCardInstance?.image}" accept="image/gif, image/jpeg, image/png, image/bmp">
 </div>
 

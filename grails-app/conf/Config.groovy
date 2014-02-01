@@ -86,6 +86,8 @@ grails.hibernate.cache.queries = false
 environments {
     development {
         grails.logging.jul.usebridge = true
+        grails.serverURL = "http://localhost:8080"
+        grails.apiURL = "http://api.scribblepics.com/postcard/preview"
     }
     production {
         grails.logging.jul.usebridge = false
